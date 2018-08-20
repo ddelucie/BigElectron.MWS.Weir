@@ -1,0 +1,14 @@
+﻿sku	fnsku	asin	product-name	condition	your-price	mfn-listing-exists	mfn-fulfillable-quantity	afn-listing-exists	afn-warehouse-quantity	afn-fulfillable-quantity	afn-unsellable-quantity	afn-reserved-quantity	afn-total-quantity	per-unit-volume	afn-inbound-working-quantity	afn-inbound-shipped-quantity	afn-inbound-receiving-quantity
+Acne_Moisturizer	X00153S9MX	B01H63526U	SerumX – Moisturizer for Acne Prone Skin with Jojoba – Organic & Natural Acne Treatment for Teens & Adults – Moisturizes Skin Without Clogging Pores – Shrinks Acne & Acne Scars	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+Acne_Serum	X0015BXCJP	B01H6350RQ	SerumX - Skin Clearing Serum for Acne Sensitive Skin with 2% Salicylic Acid – Vitamin C – Hyaluronic Acid – Retinol – Organic Acne Skin Smoothing Serum – Anti Acne Treatment for Teens & Adults	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+Acne_System	X0015BXR8B	B01H6352UG	SerumX Acne Skin Care System with Salicylic Acid – Vitamin C – Tea Tree Oil – Hyaluronic Acid – Retinol – Includes Face Wash, Skin Clearing Serum, & Moisturizer – Organic & Natural Acne Regimen	New	59.99	No		Yes	0	0	0	0	0		0	0	0
+Acne_Wash	X0014RN015	B01H6351HK	SerumX – Acne Sensitive Face Wash – Vitamin C – Tea Tree Oil – Organic & Natural Acne Skin Care for Teens & Adults with Sensitive Skin – Shrinks Acne & Acne Scars – Reduces Inflammation	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+EyeCream_Youth	X00153TA2V	B01H6352IS	SerumX - Extreme Youth Eye Cream	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+EyeGel_Bright	X0015A2DGT	B01H6353AA	SerumX - Extreme Bright Eye Cream	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+Hyaloronic_Serum	X0015C1417	B01H6350QM	SerumX - Hyaluronic Acid Serum	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+Mosturizer_Retinol	X0014H3FKL	B01H635486	SerumX - Retinol (2.5%) Moisturizing Night Cream	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+Mosturizer_VitC	X0015418L1	B01H6353LO	SerumX- Vitamin C Facial Moisturizer	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+Retinol_Serum	X00154XI8H	B01H6351I4	SerumX - Retinol (2.5%) Serum	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+StemCell_Day	X00157LSA9	B01H6353Y6	SerumX - Plant Stem Cell Anti Aging Serum	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+StemCell_Night	X0014Q6MM5	B01H6354LI	SerumX - Plant Stem Cell Anti Aging Night Cream	New	24.99	No		Yes	0	0	0	0	0		0	0	0
+Vitamin C Serum	X000Y8PNGZ	B01B93T49O	SerumX - Vitamin C Serum (20%) With Hyaluronic Acid - Vitamin E – L-Arginine - Anti Aging Skin Care Facial and Decollete Serum - 1 Ounce - Smooths Out Wrinkles - Fades Aging Spots - Brightens Skin	New	19.99	No		Yes	221	219	0	2	221	0.01	0	0	0
