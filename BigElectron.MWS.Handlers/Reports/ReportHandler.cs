@@ -87,8 +87,8 @@ namespace BigElectron.MWS.Handlers
 			if (string.IsNullOrEmpty(reportRequestId)) throw new ArgumentNullException("reportRequestId is empty");
 			ReportRequestInfo reportRequestInfo = null;
 			reportRequestInfoStatus = ReportRequestInfoStatus.Unknown;
-			int sleepTime = 30000;
-			for (int i = 0; i < 10; i++)
+			int sleepTime = 5000;
+			for (int i = 0; i < 6; i++)
 			{
 				reportRequestInfo = GetReportRequestInfo(reportRequestId);
 
@@ -96,6 +96,7 @@ namespace BigElectron.MWS.Handlers
 				if (reportRequestInfoStatus == ReportRequestInfoStatus.ReportPending || reportRequestInfoStatus == ReportRequestInfoStatus.Unknown)
 				{
 					Thread.Sleep(sleepTime);
+					sleepTime = sleepTime + sleepTime;
 				}
 				else break;
 			}
@@ -157,8 +158,19 @@ namespace BigElectron.MWS.Handlers
 		}
 
 
+		public string CreateFileLocation(string basePath, string reportType, DateTime startDate, DateTime endDate, string reportOptions = "")
+		{
+			string fileLocation = Path.Combine(basePath, reportType, startDate.Date.ToString("yyyy-MM-dd") + "--" + endDate.Date.ToString("yyyy-MM-dd") + ".txt");
+			return fileLocation;
+		}
+
 		public void WriteToFile(string fileContents, string fileLocation)
 		{
+
+			Directory.CreateDirectory(Path.GetDirectoryName(fileLocation));
+ 
+			
+ 
 			File.WriteAllText(fileLocation, fileContents);
 		}
 	}

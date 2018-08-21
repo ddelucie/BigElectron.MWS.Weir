@@ -124,6 +124,14 @@ namespace BigElectron.MWS.Common.Tests
 			Assert.AreEqual(ReportRequestInfoStatus.ReportFailed, status);
 		}
 
+		[TestMethod]
+		public void GetFilePathTest()
+		{
+			string response = reportHandler.CreateFileLocation("c:/temp", "TYPE", DateTime.Now.AddDays(-1), DateTime.Now);
+
+			Console.Write(response);
+
+		}
 
 	}
 	

@@ -1,6 +1,7 @@
 ﻿using BigElectron.Common;
 using BigElectron.MWS.Handlers;
 using BigElectron.MWS.Handlers.Reports;
+using CsvHelper;
 using MarketplaceWebService.Model;
 using Newtonsoft.Json;
 using NLog;
@@ -34,10 +35,10 @@ namespace Weir.Inventory.ConsoleApp
 
 			Console.WriteLine("month (1-12)");
 			Console.ReadLine();
-			nLogger.Info("month: " + "args[0]");
+			nLogger.Info("month: " + args[0]);
 			Console.WriteLine("year ");
 			Console.ReadLine();
-			nLogger.Info("year: " + "args[1]");
+			nLogger.Info("year: " + args[1]);
 
 			int month;
 			int year;
@@ -70,8 +71,15 @@ namespace Weir.Inventory.ConsoleApp
 				nLogger.Info("calling JoinInventoryAndOrders");
 				IEnumerable<SalesInventoryReportItem> reportItems = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable);
 				nLogger.Info("report created");
-				string csv = String.Join(",", reportItems.Select(x => x.ToString()).ToArray());
-				reportHandler.WriteToFile(csv, fileLocation);
+				//string csv = String.Join(",", reportItems.Select(x => x.ToString()).ToArray());
+				
+				string writePath = reportHandler.CreateFileLocation(fileLocation, "InventoryAndOrders", startDate, endDate);
+				//reportHandler.WriteToFile(csv, writePath);
+				Directory.CreateDirectory(Path.GetDirectoryName(fileLocation));
+				using (var csv = new CsvWriter(new StreamWriter(writePath)))
+				{
+					csv.WriteRecords(reportItems);
+				}
 			}
 
 			catch (Exception e)
