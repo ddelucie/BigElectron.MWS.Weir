@@ -15,7 +15,7 @@ namespace BigElectron.MWS.Handlers.Reports
 		public int InboundInventory { get; set; }
 		public int ReservedInventory { get; set; }
 		public int UnfulfillableInventory { get; set; }
-		public DateTime SnapshotDate { get; set; }
+		//public DateTime SnapshotDate { get; set; }
 		public int MonthlySales { get; set; }
 		public string MonthYear { get; set; }
 	}

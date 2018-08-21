@@ -70,12 +70,13 @@ namespace Weir.Inventory.ConsoleApp
 				DataTable inventoryTable = Util.StringToDataTable(inventoryReport.Content);
 				nLogger.Info("calling JoinInventoryAndOrders");
 				IEnumerable<SalesInventoryReportItem> reportItems = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable);
-				nLogger.Info("report created");
+				nLogger.Info("SalesInventoryReportItem report created");
 				//string csv = String.Join(",", reportItems.Select(x => x.ToString()).ToArray());
 				
 				string writePath = reportHandler.CreateFileLocation(fileLocation, "InventoryAndOrders", startDate, endDate);
+				nLogger.Info("SalesInventoryReportItem report path: " + writePath);
 				//reportHandler.WriteToFile(csv, writePath);
-				Directory.CreateDirectory(Path.GetDirectoryName(fileLocation));
+				Directory.CreateDirectory(Path.GetDirectoryName(writePath));
 				using (var csv = new CsvWriter(new StreamWriter(writePath)))
 				{
 					csv.WriteRecords(reportItems);

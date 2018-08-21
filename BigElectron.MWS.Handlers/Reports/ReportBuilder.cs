@@ -31,10 +31,10 @@ namespace BigElectron.MWS.Handlers.Reports
 						  select new SalesInventoryReportItem
 						  {
 							  ASIN = inventoryData["ASIN"].ToString(),
-							  TotalInventory = Convert.ToInt32(inventoryData["afn-unsellable-quantity"]),
+							  TotalInventory = Convert.ToInt32(inventoryData["afn-total-quantity"]),
 							  UnfulfillableInventory = Convert.ToInt32(inventoryData["afn-unsellable-quantity"]),
-							  InboundInventory = Convert.ToInt32(inventoryData["afn-unsellable-quantity"]),
-							  ReservedInventory = Convert.ToInt32(inventoryData["afn-unsellable-quantity"]),
+							  InboundInventory = Convert.ToInt32(inventoryData["afn-inbound-shipped-quantity"]),
+							  ReservedInventory = Convert.ToInt32(inventoryData["afn-reserved-quantity"]),
 							  MonthlySales = inventoryorders == null ? 0 : inventoryorders.quantity,
 							  MonthYear = monthYear
 						  };
