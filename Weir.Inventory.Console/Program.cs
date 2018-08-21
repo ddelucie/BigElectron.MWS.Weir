@@ -69,7 +69,7 @@ namespace Weir.Inventory.ConsoleApp
 				nLogger.Info("getting inventoryTable");
 				DataTable inventoryTable = Util.StringToDataTable(inventoryReport.Content);
 				nLogger.Info("calling JoinInventoryAndOrders");
-				IEnumerable<SalesInventoryReportItem> reportItems = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable);
+				IEnumerable<SalesInventoryReportItem> reportItems = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable, startDate);
 				nLogger.Info("SalesInventoryReportItem report created");
 				
 				string writePath = reportHandler.CreateFileLocation(fileLocation, "InventoryAndOrders", startDate, endDate);

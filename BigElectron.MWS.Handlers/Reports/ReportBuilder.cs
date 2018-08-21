@@ -11,7 +11,7 @@ namespace BigElectron.MWS.Handlers.Reports
 	{
 
 
-		public IEnumerable<SalesInventoryReportItem> JoinInventoryAndOrders(DataTable inventory, DataTable orders)
+		public IEnumerable<SalesInventoryReportItem> JoinInventoryAndOrders(DataTable inventory, DataTable orders, DateTime ordersDate)
 		{
 			var ordersEnumerable = orders.AsEnumerable();
 			var groupedOrders = from o in ordersEnumerable
@@ -19,11 +19,13 @@ namespace BigElectron.MWS.Handlers.Reports
 								select new { sku = g.Key, quantity = g.ToList().Count};
 
 			string monthYear = "";
-			if (ordersEnumerable != null && ordersEnumerable.Any())
-			{
-				DateTime orderDate = Convert.ToDateTime(ordersEnumerable.First()["purchase-date"]);
-				monthYear = orderDate.Month.ToString("d2") + orderDate.Year.ToString();
-			}
+			//if (ordersEnumerable != null && ordersEnumerable.Any())
+			//{
+			//	DateTime orderDate = Convert.ToDateTime(ordersEnumerable.First()["purchase-date"]);
+			//	monthYear = orderDate.Month.ToString("d2") + orderDate.Year.ToString();
+			//}
+			monthYear = ordersDate.Month.ToString("d2") + ordersDate.Year.ToString();
+			
 
 			var results = from inventoryData in inventory.AsEnumerable()
 						  join ordersData in groupedOrders.AsEnumerable() on inventoryData["sku"] equals ordersData.sku into g

@@ -42,7 +42,7 @@ namespace BigElectron.MWS.Common.Tests
 			ReportBuilder reportBuilder = new ReportBuilder();
 
 
-			var report = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable);
+			var report = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable, DateTime.Now);
 
 
 			foreach (var item in report)
