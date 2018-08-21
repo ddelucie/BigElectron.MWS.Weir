@@ -40,7 +40,8 @@ namespace BigElectron.MWS.Handlers
 		{
 			if (string.IsNullOrWhiteSpace(reportType)) throw new ArgumentNullException("reportType is empty");
 
-			nLogger.Info("RequestReport start");
+			nLogger.Info("RequestReport start for reportType: " + reportType);
+
 			RequestReportRequest request = new RequestReportRequest();
 			request.ReportType = reportType;
 			request.Merchant = serviceContext.SellerId; ;
@@ -90,6 +91,8 @@ namespace BigElectron.MWS.Handlers
 			int sleepTime = 5000;
 			for (int i = 0; i < 6; i++)
 			{
+				nLogger.Info("GetReportRequestInfo polling for reportRequestId: " + reportRequestId);
+
 				reportRequestInfo = GetReportRequestInfo(reportRequestId);
 
 				reportRequestInfoStatus = GetReportRequestInfoStatus(reportRequestInfo);
@@ -166,11 +169,7 @@ namespace BigElectron.MWS.Handlers
 
 		public void WriteToFile(string fileContents, string fileLocation)
 		{
-
 			Directory.CreateDirectory(Path.GetDirectoryName(fileLocation));
- 
-			
- 
 			File.WriteAllText(fileLocation, fileContents);
 		}
 	}

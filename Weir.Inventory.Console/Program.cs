@@ -22,11 +22,15 @@ namespace Weir.Inventory.ConsoleApp
 		{
 			ILogger nLogger = LogManager.GetLogger("Inventory.Console Logger");
 
+			nLogger.Info("Starting console app");
+
 			string fileLocation = "c:/Temp";
 			string keyFileLocation = "c:/Temp";
 
 			var appSettings = ConfigurationManager.AppSettings;
 			keyFileLocation = appSettings["KeyFileLocation"];
+
+			Console.WriteLine("keyFileLocation: " +keyFileLocation);
 
 			string keyData = File.ReadAllText(keyFileLocation);
 			ServiceContext serviceContext = new ServiceContext();
@@ -49,12 +53,8 @@ namespace Weir.Inventory.ConsoleApp
 			DateTime startDate = new DateTime(year, month, 1);
 			DateTime endDate = startDate.AddMonths(1);
 
-
-
-
 			try
 			{
-				nLogger.Info("Starting console app");
 				ReportHandler reportHandler = new ReportHandler(serviceContext, nLogger);
 				ReportManager reportManager = new ReportManager();
 				ReportBuilder reportBuilder = new ReportBuilder();
@@ -71,16 +71,16 @@ namespace Weir.Inventory.ConsoleApp
 				nLogger.Info("calling JoinInventoryAndOrders");
 				IEnumerable<SalesInventoryReportItem> reportItems = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable);
 				nLogger.Info("SalesInventoryReportItem report created");
-				//string csv = String.Join(",", reportItems.Select(x => x.ToString()).ToArray());
 				
 				string writePath = reportHandler.CreateFileLocation(fileLocation, "InventoryAndOrders", startDate, endDate);
 				nLogger.Info("SalesInventoryReportItem report path: " + writePath);
-				//reportHandler.WriteToFile(csv, writePath);
+
 				Directory.CreateDirectory(Path.GetDirectoryName(writePath));
 				using (var csv = new CsvWriter(new StreamWriter(writePath)))
 				{
 					csv.WriteRecords(reportItems);
 				}
+				nLogger.Info("csv written");
 			}
 
 			catch (Exception e)
