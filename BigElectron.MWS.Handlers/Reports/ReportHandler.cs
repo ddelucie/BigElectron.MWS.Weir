@@ -57,8 +57,11 @@ namespace BigElectron.MWS.Handlers
 		{
 			if (string.IsNullOrWhiteSpace(reportId)) throw new ArgumentNullException("reportId is empty");
 
+			nLogger.Info("GetReport for : " + reportId);
+
 			GetReportRequest req = new GetReportRequest();
 			req.MWSAuthToken = serviceContext.MwsAuthToken;
+			if (string.IsNullOrEmpty(req.MWSAuthToken)) req.MWSAuthToken = "MWSAuthToken";
 			req.Merchant = serviceContext.SellerId;
 			req.ReportId = reportId;
 
@@ -66,17 +69,11 @@ namespace BigElectron.MWS.Handlers
 
 			try
 			{
-				nLogger.Info("Check Report Status");
-
 				response = service.GetReport(req);
-			}
-			catch (MarketplaceWebServiceException e)
-			{
-				if (e.ErrorCode == "FeedProcessingResultNotReady") nLogger.Info("Report result not available");
 			}
 			catch (Exception e)
 			{
-				nLogger.Error("Check Report Status Failed");
+				nLogger.Error("GetReport Failed");
 				throw;
 			}
 
@@ -150,7 +147,7 @@ namespace BigElectron.MWS.Handlers
 				_DONE_
 				_DONE_NO_DATA_
 			 */
-
+			if (reportRequestInfo == null) return ReportRequestInfoStatus.ReportPending;
 			if (reportRequestInfo.ReportProcessingStatus == "_SUBMITTED_") return ReportRequestInfoStatus.ReportPending;
 			if (reportRequestInfo.ReportProcessingStatus == "_IN_PROGRESS_") return ReportRequestInfoStatus.ReportPending;
 			if (reportRequestInfo.ReportProcessingStatus == "_CANCELLED_") return ReportRequestInfoStatus.ReportFailed;

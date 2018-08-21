@@ -2,11 +2,13 @@
 using BigElectron.MWS.Handlers;
 using BigElectron.MWS.Handlers.Reports;
 using MarketplaceWebService.Model;
+using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,21 +19,25 @@ namespace Weir.Inventory.ConsoleApp
 	{
 		static void Main(string[] args)
 		{
+			ILogger nLogger = LogManager.GetLogger("Inventory.Console Logger");
+
 			string fileLocation = "c:/Temp";
 			string keyFileLocation = "c:/Temp";
 
 			var appSettings = ConfigurationManager.AppSettings;
 			keyFileLocation = appSettings["KeyFileLocation"];
 
-
+			string keyData = File.ReadAllText(keyFileLocation);
 			ServiceContext serviceContext = new ServiceContext();
-
+			serviceContext = JsonConvert.DeserializeObject<ServiceContext>(keyData);
 
 
 			Console.WriteLine("month (1-12)");
 			Console.ReadLine();
+			nLogger.Info("month: " + "args[0]");
 			Console.WriteLine("year ");
 			Console.ReadLine();
+			nLogger.Info("year: " + "args[1]");
 
 			int month;
 			int year;
@@ -43,11 +49,11 @@ namespace Weir.Inventory.ConsoleApp
 			DateTime endDate = startDate.AddMonths(1);
 
 
-			ILogger nLogger = LogManager.GetLogger("Inventory.Console Logger");
+
 
 			try
 			{
-
+				nLogger.Info("Starting console app");
 				ReportHandler reportHandler = new ReportHandler(serviceContext, nLogger);
 				ReportManager reportManager = new ReportManager();
 				ReportBuilder reportBuilder = new ReportBuilder();
@@ -62,15 +68,19 @@ namespace Weir.Inventory.ConsoleApp
 				nLogger.Info("getting inventoryTable");
 				DataTable inventoryTable = Util.StringToDataTable(inventoryReport.Content);
 				nLogger.Info("calling JoinInventoryAndOrders");
-				reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable);
+				IEnumerable<SalesInventoryReportItem> reportItems = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable);
+				nLogger.Info("report created");
+				string csv = String.Join(",", reportItems.Select(x => x.ToString()).ToArray());
+				reportHandler.WriteToFile(csv, fileLocation);
 			}
 
 			catch (Exception e)
 			{
+				nLogger.Error(e);
 				Console.WriteLine(e.Message);
 			}
 
-			Console.ReadKey();
+			//Console.ReadKey();
 		}
 	}
 

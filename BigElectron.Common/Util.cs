@@ -179,7 +179,9 @@ namespace BigElectron.Common
 
 		public static DataTable StringToDataTable(string data)
 		{
-			DataTable datatable = new DataTable();
+			DataTable dataTable = new DataTable();
+			if (string.IsNullOrEmpty(data)) return dataTable;
+
 			using (StringReader reader = new StringReader(data))
 			{
 				string line;
@@ -190,19 +192,19 @@ namespace BigElectron.Common
 					{
 						foreach (string columnheader in line.Split('\t'))
 						{
-							datatable.Columns.Add(columnheader);
+							dataTable.Columns.Add(columnheader);
 						}
 
 
 						isFirst = false;
 						continue;
 					}
-					DataRow datarow = datatable.NewRow();
+					DataRow datarow = dataTable.NewRow();
 					datarow.ItemArray = line.Split('\t');
-					datatable.Rows.Add(datarow);
+					dataTable.Rows.Add(datarow);
 				}
 			}
-			return datatable;
+			return dataTable;
 
 		}
 

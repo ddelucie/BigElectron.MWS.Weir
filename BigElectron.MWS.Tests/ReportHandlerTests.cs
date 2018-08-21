@@ -31,9 +31,8 @@ namespace BigElectron.MWS.Common.Tests
 		string serviceURL = "https://mws.amazonservices.com";
 
 		string sellerId = "A2FYRWBB6FC905"; // me
-		//string sellerId = "ARA1ZW7ZHL5MQ"; // RC
-		string mWSAuthToken = "amzn.mws.10b0d30f-3c9c-fa00-c792-e9142f66a94c"; // me
-		 //string mWSAuthToken = "amzn.mws.c2b0d4ad-e73e-b729-d3a1-b0998fcd6a9f"; // RC
+		string mWSAuthToken = ""; // me
+
 
 		ReportHandler reportHandler;
 
@@ -47,8 +46,8 @@ namespace BigElectron.MWS.Common.Tests
 
 			serviceContext.MwsAuthToken = mWSAuthToken;
 			serviceContext.AppVersion = appVersion;
-			serviceContext.AccessKey = "AKIAJ4MVK7Q3GDLCEKMQ";
-			serviceContext.SecretKey = "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";
+			serviceContext.AccessKey = creds.AccessKey;
+			serviceContext.SecretKey = creds.SecretKey;
 			serviceContext.SellerId = sellerId;
 			serviceContext.ApplicationName = "test";
 			serviceContext.MwsServiceUrl = serviceURL;
@@ -103,13 +102,8 @@ namespace BigElectron.MWS.Common.Tests
 		public void GetReportTest()
 		{
 
-			GetReportRequest request = new GetReportRequest();
-			request.Merchant = serviceContext.SellerId;
-			request.MWSAuthToken = serviceContext.MwsAuthToken;  // Optional
-			request.ReportId = "10772964819017755"; 
-
-
-			GetReportResult response = reportHandler.GetReport(request.ReportId);
+ 
+			GetReportResult response = reportHandler.GetReport("10772964819017755");
 
 			Console.Write(response.Content); 
 			Assert.IsTrue(response.Content.Contains("sku"));
