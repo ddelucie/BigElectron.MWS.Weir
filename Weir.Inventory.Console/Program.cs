@@ -30,7 +30,7 @@ namespace Weir.Inventory.ConsoleApp
 			var appSettings = ConfigurationManager.AppSettings;
 			keyFileLocation = appSettings["KeyFileLocation"];
 
-			Console.WriteLine("keyFileLocation: " +keyFileLocation);
+			nLogger.Info("keyFileLocation: " +keyFileLocation);
 
 			string keyData = File.ReadAllText(keyFileLocation);
 			ServiceContext serviceContext = new ServiceContext();
@@ -38,17 +38,17 @@ namespace Weir.Inventory.ConsoleApp
 
 
 			Console.WriteLine("month (1-12)");
-			Console.ReadLine();
-			nLogger.Info("month: " + args[0]);
+			string m = Console.ReadLine();
+			nLogger.Info("month: " + m);
 			Console.WriteLine("year ");
-			Console.ReadLine();
-			nLogger.Info("year: " + args[1]);
+			string y = Console.ReadLine();
+			nLogger.Info("year: " + y);
 
 			int month;
 			int year;
 			DateTime date = DateTime.Now.Date;
-			if (!Int32.TryParse(args[0], out month)) month = date.Month;
-			if (!Int32.TryParse(args[1], out year)) year = date.Year;
+			if (!Int32.TryParse(m, out month)) month = date.Month;
+			if (!Int32.TryParse(y, out year)) year = date.Year;
 
 			DateTime startDate = new DateTime(year, month, 1);
 			DateTime endDate = startDate.AddMonths(1);
@@ -89,7 +89,8 @@ namespace Weir.Inventory.ConsoleApp
 				Console.WriteLine(e.Message);
 			}
 
-			//Console.ReadKey();
+			Console.WriteLine("Report Complete.");
+			Console.ReadKey();
 		}
 	}
 
