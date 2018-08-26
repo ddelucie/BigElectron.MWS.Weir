@@ -24,13 +24,18 @@ namespace Weir.Inventory.ConsoleApp
 
 			nLogger.Info("Starting console app");
 
-			string fileLocation = "c:/Temp";
+			string outputLocation = "c:/Temp";
 			string keyFileLocation = "c:/Temp";
+			string asinFilterListLocation = "c:/Temp";
 
 			var appSettings = ConfigurationManager.AppSettings;
-			keyFileLocation = appSettings["KeyFileLocation"];
+			outputLocation = appSettings["outputLocation"];
+			keyFileLocation = appSettings["keyFileLocation"];
+			asinFilterListLocation = appSettings["asinFilterListLocation"];
 
-			nLogger.Info("keyFileLocation: " +keyFileLocation);
+			nLogger.Info("outputLocation: " + outputLocation);
+			nLogger.Info("keyFileLocation: " + keyFileLocation);
+			nLogger.Info("asinFilterListLocation: " + asinFilterListLocation);
 
 			string keyData = File.ReadAllText(keyFileLocation);
 			ServiceContext serviceContext = new ServiceContext();
@@ -56,13 +61,13 @@ namespace Weir.Inventory.ConsoleApp
 			try
 			{
 				ReportHandler reportHandler = new ReportHandler(serviceContext, nLogger);
-				ReportManager reportManager = new ReportManager();
+				ReportManager reportManager = new ReportManager(reportHandler);
 				ReportBuilder reportBuilder = new ReportBuilder();
 
 				nLogger.Info("getting ordersReport");
-				GetReportResult ordersReport = reportManager.GetReport(reportHandler, ReportType._GET_FLAT_FILE_ORDERS_DATA_, startDate, endDate, fileLocation);
+				GetReportResult ordersReport = reportManager.GetReport(ReportType._GET_FLAT_FILE_ORDERS_DATA_, startDate, endDate, outputLocation);
 				nLogger.Info("getting inventoryReport");
-				GetReportResult inventoryReport = reportManager.GetReport(reportHandler, ReportType._GET_FBA_MYI_ALL_INVENTORY_DATA_, DateTime.Now.Date.AddDays(-1), DateTime.Now.Date, fileLocation);
+				GetReportResult inventoryReport = reportManager.GetReport(ReportType._GET_FBA_MYI_ALL_INVENTORY_DATA_, DateTime.Now.Date.AddDays(-1), DateTime.Now.Date, outputLocation);
 
 				nLogger.Info("getting ordersTable");
 				DataTable ordersTable = Util.StringToDataTable(ordersReport.Content);
@@ -70,9 +75,15 @@ namespace Weir.Inventory.ConsoleApp
 				DataTable inventoryTable = Util.StringToDataTable(inventoryReport.Content);
 				nLogger.Info("calling JoinInventoryAndOrders");
 				IEnumerable<SalesInventoryReportItem> reportItems = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable, startDate);
-				nLogger.Info("SalesInventoryReportItem report created");
-				
-				string writePath = reportHandler.CreateFileLocation(fileLocation, "InventoryAndOrders", startDate, endDate);
+				nLogger.Info(string.Format("SalesInventoryReportItem report created, Count: {0}", reportItems.Count()));
+
+				nLogger.Info("GetAsinFilterList");
+				IList<string> asinFilterList = reportManager.GetAsinFilterList(asinFilterListLocation);
+
+				nLogger.Info("filtering by asins");
+				reportItems = reportManager.FilterReportByAsins(reportItems.ToList(), asinFilterList);
+
+				string writePath = reportHandler.CreateFileLocation(outputLocation, "InventoryAndOrders", startDate, endDate);
 				nLogger.Info("SalesInventoryReportItem report path: " + writePath);
 
 				Directory.CreateDirectory(Path.GetDirectoryName(writePath));

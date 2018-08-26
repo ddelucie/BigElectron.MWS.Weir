@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Reports\SalesInventoryReport.cs" />
     <Compile Include="Reports\ReportBuilder.cs" />
     <Compile Include="Reports\ReportHandler.cs" />

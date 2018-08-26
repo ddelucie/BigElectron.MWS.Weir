@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BigElectron.MWS.Handlers", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weir.Inventory.ConsoleApp", "Weir.Inventory.Console\Weir.Inventory.ConsoleApp.csproj", "{FD4A259E-F6A5-4CF8-9047-3AA969BEC1CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weir.Inventory.ConsoleApp.Tests", "Weir.Inventory.ConsoleApp.Tests\Weir.Inventory.ConsoleApp.Tests.csproj", "{72084B8D-3E86-40E7-8968-F70F7CC85C53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FD4A259E-F6A5-4CF8-9047-3AA969BEC1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD4A259E-F6A5-4CF8-9047-3AA969BEC1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD4A259E-F6A5-4CF8-9047-3AA969BEC1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72084B8D-3E86-40E7-8968-F70F7CC85C53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72084B8D-3E86-40E7-8968-F70F7CC85C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72084B8D-3E86-40E7-8968-F70F7CC85C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72084B8D-3E86-40E7-8968-F70F7CC85C53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
