@@ -47,7 +47,7 @@ namespace Weir.Inventory.ConsoleApp.Tests
 
 			IList<string> filter = reportManager.GetAsinFilterList(@"C:\Temp\Asin\filter.txt");
 
-			Assert.AreEqual(1, filter.Count);
+			Assert.AreEqual(2, filter.Count);
 		}
 
 
