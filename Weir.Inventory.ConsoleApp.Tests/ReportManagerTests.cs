@@ -53,7 +53,7 @@ namespace Weir.Inventory.ConsoleApp.Tests
 
 
 		[TestMethod]
-		public void FilterReportByAsinsTest()
+		public void FilterReportByAsins_ItemsInFilter()
 		{
 
 			IList<string> filter = reportManager.GetAsinFilterList(@"C:\Temp\Asin\filter.txt");
@@ -69,6 +69,27 @@ namespace Weir.Inventory.ConsoleApp.Tests
 
 			Assert.AreEqual(1, reportItems.Count);
 			Assert.AreEqual("0763644323", reportItems.First().ASIN);
+		}
+
+
+
+		[TestMethod]
+		public void FilterReportByAsins_EmptyFilter()
+		{
+
+			IList<string> filter = reportManager.GetAsinFilterList(@"C:\Temp\Asin\empty.txt");
+
+			IList<SalesInventoryReportItem> reportItems = new List<SalesInventoryReportItem>();
+			reportItems.Add(new SalesInventoryReportItem() { ASIN = "111111111" });
+			reportItems.Add(new SalesInventoryReportItem() { ASIN = "0763644323" });
+			reportItems.Add(new SalesInventoryReportItem() { ASIN = "XX63644321" });
+
+
+			reportItems = reportManager.FilterReportByAsins(reportItems.ToList(), filter);
+
+
+			Assert.AreEqual(3, reportItems.Count);
+
 		}
 
 		[TestMethod]
