@@ -65,7 +65,7 @@ namespace Weir.Inventory.ConsoleApp
 				ReportBuilder reportBuilder = new ReportBuilder();
 
 				nLogger.Info("getting ordersReport");
-				GetReportResult ordersReport = reportManager.GetReport(ReportType._GET_FLAT_FILE_ORDERS_DATA_, startDate, endDate, outputLocation);
+				GetReportResult ordersReport = reportManager.GetReport(ReportType._GET_FLAT_FILE_ALL_ORDERS_DATA_BY_ORDER_DATE_, startDate, endDate, outputLocation);
 				nLogger.Info("getting inventoryReport");
 				GetReportResult inventoryReport = reportManager.GetReport(ReportType._GET_FBA_MYI_ALL_INVENTORY_DATA_, DateTime.Now.Date.AddDays(-1), DateTime.Now.Date, outputLocation);
 
