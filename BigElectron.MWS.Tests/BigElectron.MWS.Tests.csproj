@@ -119,6 +119,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="report_samples\_GET_FLAT_FILE_ALL_ORDERS_DATA_BY_ORDER_DATE_.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="report_samples\_GET_FBA_MYI_ALL_INVENTORY_DATA_.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

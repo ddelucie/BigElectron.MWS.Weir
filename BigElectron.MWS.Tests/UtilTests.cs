@@ -14,7 +14,7 @@ namespace BigElectron.MWS.Common.Tests
 	[TestClass]
 	public class UtilTests
 	{
-		[TestMethod]
+		[TestMethod][Ignore]
 		public void SendEmailTest()
 		{
 			Util.SendEmail("TEST EMAIL", "XXXX", new List<string> { "ddelucie@hotmail.com" });

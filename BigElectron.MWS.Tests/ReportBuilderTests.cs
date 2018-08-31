@@ -36,13 +36,13 @@ namespace BigElectron.MWS.Common.Tests
 			string inventory = File.ReadAllText(@"report_samples\_GET_FBA_MYI_ALL_INVENTORY_DATA_.txt");
 			DataTable inventoryTable = Util.StringToDataTable(inventory);
 
-			string orders = File.ReadAllText(@"report_samples\_GET_FLAT_FILE_ORDERS_DATA_2.txt");
+			string orders = File.ReadAllText(@"report_samples\_GET_FLAT_FILE_ALL_ORDERS_DATA_BY_ORDER_DATE_.txt");
 			DataTable ordersTable = Util.StringToDataTable(orders);
 
 			ReportBuilder reportBuilder = new ReportBuilder();
 
 
-			var report = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable, DateTime.Now);
+			var report = reportBuilder.JoinInventoryAndOrders(inventoryTable, ordersTable, DateTime.Parse("7/1/2018"));
 
 
 			foreach (var item in report)
@@ -57,13 +57,20 @@ namespace BigElectron.MWS.Common.Tests
 			}
 			
 			Assert.IsNotNull(report);
+
+			var inventoryitem = report.First(r => r.ASIN == "B01B93T49O");
+
+			Assert.AreEqual("B01B93T49O", inventoryitem.ASIN);
+			Assert.AreEqual( 23, inventoryitem.MonthlySales);
+			Assert.AreEqual("072018", inventoryitem.MonthYear);
+
 			Assert.IsTrue(0 < report.Count());
 			Assert.AreEqual(13, report.Count());
 			Assert.AreEqual(1, report.First().ReservedInventory);
 			Assert.AreEqual(100, report.First().TotalInventory);
 			Assert.AreEqual(20, report.First().UnfulfillableInventory);
-			Assert.AreEqual(1, report.First().MonthlySales);
-			Assert.AreEqual(3, report.ElementAt(1).MonthlySales);
+			//Assert.AreEqual(1, report.First().MonthlySales);
+			//Assert.AreEqual(3, report.ElementAt(1).MonthlySales);
 		}
 	}
 	
