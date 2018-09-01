@@ -15,12 +15,12 @@ namespace Weir.Inventory.ConsoleApp.Tests
 		Mock<ILogger> mocknLogger = new Mock<ILogger>();
 		Mock<ReportHandler> mockReportHandler;
 		ReportManager reportManager;
+		ServiceContext serviceContext = new ServiceContext();
 
 		public ReportManagerTests()
 		{
 			mockReportHandler = new Mock<ReportHandler>(new ServiceContext(), mocknLogger.Object);
-			reportManager = new ReportManager(mockReportHandler.Object);
-
+			reportManager = new ReportManager(mockReportHandler.Object, serviceContext, mocknLogger.Object);
 		}
 
 		[TestMethod]
@@ -106,6 +106,19 @@ namespace Weir.Inventory.ConsoleApp.Tests
 			Assert.AreEqual(0, reportItems.Count);
 
 		}
+
+		//[TestMethod]
+		//public void _EmptyReport()
+		//{
+
+
+
+		//	reportItems = reportManager.GetPriorReport();
+
+
+		//	Assert.AreEqual(0, reportItems.Count);
+
+		//}
 
 	}
 }

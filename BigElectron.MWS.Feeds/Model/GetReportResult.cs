@@ -44,6 +44,11 @@ namespace MarketplaceWebService.Model
 			set { this.content = value; }
 		}
 
+		public Boolean IsEmptyContent()
+		{
+			return this.Content.LastIndexOf("\r\n") == this.Content.IndexOf("\r\n");
+		}
+
 		public Boolean IsSetContentMD5()
         {
             return this.contentMd5 != null;

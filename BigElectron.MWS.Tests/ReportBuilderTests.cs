@@ -31,7 +31,7 @@ namespace BigElectron.MWS.Common.Tests
 
 
 		[TestMethod]
-		public void ReportBuilderTest()
+		public void JoinInventoryAndOrdersTest()
 		{
 			string inventory = File.ReadAllText(@"report_samples\_GET_FBA_MYI_ALL_INVENTORY_DATA_.txt");
 			DataTable inventoryTable = Util.StringToDataTable(inventory);
@@ -71,6 +71,37 @@ namespace BigElectron.MWS.Common.Tests
 			Assert.AreEqual(20, report.First().UnfulfillableInventory);
 			//Assert.AreEqual(1, report.First().MonthlySales);
 			//Assert.AreEqual(3, report.ElementAt(1).MonthlySales);
+		}
+
+
+
+		[TestMethod]
+		public void IsEmptyContent_NotEmpty()
+		{
+			string inventory = File.ReadAllText(@"report_samples\_GET_FBA_MYI_ALL_INVENTORY_DATA_.txt");
+			GetReportResult getReportResult = new GetReportResult();
+			getReportResult.Content = inventory;
+
+			Assert.IsFalse(getReportResult.IsEmptyContent());
+		}
+		[TestMethod]
+		public void IsEmptyContent_OneLineHeadersOnly()
+		{
+			string inventory = File.ReadAllText(@"report_samples\_GET_FLAT_FILE_ALL_ORDERS_DATA_BY_ORDER_DATE_empty.txt");
+			GetReportResult getReportResult = new GetReportResult();
+			getReportResult.Content = inventory;
+
+			Assert.IsTrue(getReportResult.IsEmptyContent());
+		}
+
+
+		public void IsEmptyContent_Empty()
+		{
+			string inventory = "";
+			GetReportResult getReportResult = new GetReportResult();
+			getReportResult.Content = inventory;
+
+			Assert.IsTrue(getReportResult.IsEmptyContent());
 		}
 	}
 	

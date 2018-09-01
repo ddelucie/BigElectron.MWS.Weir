@@ -118,14 +118,26 @@ namespace BigElectron.MWS.Handlers
 		}
 
 
-		public GetReportRequestListResult GetReportRequestList()
+		public GetReportRequestListResult GetReportRequestList(decimal count = 10m, string reportType = "")
 		{
 			nLogger.Info("GetReportRequestList start");
 			GetReportRequestListRequest request = new GetReportRequestListRequest();
 			request.MWSAuthToken = serviceContext.MwsAuthToken;
 			request.Merchant = serviceContext.SellerId;
+			request.MaxCount = count;
+			if(!string.IsNullOrEmpty(reportType))request.ReportTypeList.Type.Add(reportType);
 			GetReportRequestListResponse response = service.GetReportRequestList(request);
 			return response.GetReportRequestListResult;
+		}
+
+		public GetReportListResult GetReportList()
+		{
+			nLogger.Info("GetReportRequestList start");
+			GetReportListRequest request = new GetReportListRequest();
+			request.MWSAuthToken = serviceContext.MwsAuthToken;
+			request.Merchant = serviceContext.SellerId;
+			GetReportListResponse response = service.GetReportList(request);
+			return response.GetReportListResult;
 		}
 
 		/// <summary>
@@ -161,9 +173,9 @@ namespace BigElectron.MWS.Handlers
 		}
 
 
-		public string CreateFileLocation(string basePath, string reportType, DateTime startDate, DateTime endDate, string reportOptions = "")
+		public string CreateFileLocation(string basePath, string sellerId, string reportType, DateTime startDate, DateTime endDate, string reportOptions = "")
 		{
-			string fileLocation = Path.Combine(basePath, reportType, startDate.Date.ToString("yyyy-MM-dd") + "--" + endDate.Date.ToString("yyyy-MM-dd") + ".txt");
+			string fileLocation = Path.Combine(basePath, sellerId, reportType, startDate.Date.ToString("yyyy-MM-dd") + "--" + endDate.Date.ToString("yyyy-MM-dd") + ".txt");
 			return fileLocation;
 		}
 

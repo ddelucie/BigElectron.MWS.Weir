@@ -97,6 +97,21 @@ namespace BigElectron.MWS.Common.Tests
 			//50033017756
 		}
 
+		[TestMethod]
+		public void GetReportListTest()
+		{
+			GetReportListResult response = reportHandler.GetReportList();
+
+			Assert.IsTrue(response.ReportInfo.Count > 0);
+
+			foreach (var item in response.ReportInfo)
+			{
+				Console.WriteLine("ReportRequestId: " + item.ReportRequestId);
+				Console.WriteLine("ReportType: " + item.ReportType);
+				Console.WriteLine("ReportId: " + item.ReportId);
+				Console.WriteLine("---------------------------------------------- ");
+			}
+		}
 
 		[TestMethod] 
 		public void GetReportTest()
@@ -127,7 +142,7 @@ namespace BigElectron.MWS.Common.Tests
 		[TestMethod]
 		public void GetFilePathTest()
 		{
-			string response = reportHandler.CreateFileLocation("c:/temp", "TYPE", DateTime.Now.AddDays(-1), DateTime.Now);
+			string response = reportHandler.CreateFileLocation("c:/temp", "MySellerId", "TYPE", DateTime.Now.AddDays(-1), DateTime.Now);
 
 			Console.Write(response);
 

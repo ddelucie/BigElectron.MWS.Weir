@@ -61,7 +61,7 @@ namespace Weir.Inventory.ConsoleApp
 			try
 			{
 				ReportHandler reportHandler = new ReportHandler(serviceContext, nLogger);
-				ReportManager reportManager = new ReportManager(reportHandler);
+				ReportManager reportManager = new ReportManager(reportHandler, serviceContext, nLogger);
 				ReportBuilder reportBuilder = new ReportBuilder();
 
 				nLogger.Info("getting ordersReport");
@@ -83,7 +83,7 @@ namespace Weir.Inventory.ConsoleApp
 				nLogger.Info("filtering by asins");
 				reportItems = reportManager.FilterReportByAsins(reportItems.ToList(), asinFilterList);
 
-				string writePath = reportHandler.CreateFileLocation(outputLocation, "InventoryAndOrders", startDate, endDate);
+				string writePath = reportHandler.CreateFileLocation(outputLocation, serviceContext.SellerId, "InventoryAndOrders", startDate, endDate);
 				nLogger.Info("SalesInventoryReportItem report path: " + writePath);
 
 				Directory.CreateDirectory(Path.GetDirectoryName(writePath));
