@@ -122,6 +122,7 @@ namespace BigElectron.MWS.Handlers
 		{
 			nLogger.Info("GetReportRequestList start");
 			GetReportRequestListRequest request = new GetReportRequestListRequest();
+			request.ReportTypeList = new TypeList();
 			request.MWSAuthToken = serviceContext.MwsAuthToken;
 			request.Merchant = serviceContext.SellerId;
 			request.MaxCount = count;

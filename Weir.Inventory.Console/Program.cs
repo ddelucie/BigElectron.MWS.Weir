@@ -79,6 +79,7 @@ namespace Weir.Inventory.ConsoleApp
 
 				nLogger.Info("GetAsinFilterList");
 				IList<string> asinFilterList = reportManager.GetAsinFilterList(asinFilterListLocation);
+				nLogger.Info(string.Format("asinFilterList, Count: {0}", asinFilterList.Count()));
 
 				nLogger.Info("filtering by asins");
 				reportItems = reportManager.FilterReportByAsins(reportItems.ToList(), asinFilterList);

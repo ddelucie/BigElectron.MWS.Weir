@@ -81,7 +81,7 @@ namespace Weir.Inventory.ConsoleApp
 			GetReportResult report = new GetReportResult();
 			var reportRequestList = reportHandler.GetReportRequestList(50m, reportType);
 			var priorReportRequestInfo = reportRequestList.ReportRequestInfo
-				.Where(r => r.StartDate.Date == startDate.Date.AddDays(-1))
+				.Where(r => r.StartDate.Date == startDate.Date.AddDays(-1)  && r.ReportProcessingStatus == "_DONE_")
 				.OrderBy(r => r.SubmittedDate).FirstOrDefault();
 			if (priorReportRequestInfo != null)
 			{
