@@ -46,6 +46,7 @@ namespace MarketplaceWebService.Model
 
 		public Boolean IsEmptyContent()
 		{
+			if (string.IsNullOrEmpty(this.Content)) return true;
 			return this.Content.LastIndexOf("\r\n") == this.Content.IndexOf("\r\n");
 		}
 

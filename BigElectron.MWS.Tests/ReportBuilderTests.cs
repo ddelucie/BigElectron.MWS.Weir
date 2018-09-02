@@ -103,6 +103,15 @@ namespace BigElectron.MWS.Common.Tests
 
 			Assert.IsTrue(getReportResult.IsEmptyContent());
 		}
+
+		public void IsEmptyContent_NullContent()
+		{
+			string inventory = "";
+			GetReportResult getReportResult = new GetReportResult();
+
+
+			Assert.IsTrue(getReportResult.IsEmptyContent());
+		}
 	}
 	
 }

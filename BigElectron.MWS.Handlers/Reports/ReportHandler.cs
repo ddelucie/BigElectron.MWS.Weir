@@ -40,7 +40,7 @@ namespace BigElectron.MWS.Handlers
 		{
 			if (string.IsNullOrWhiteSpace(reportType)) throw new ArgumentNullException("reportType is empty");
 
-			nLogger.Info("RequestReport start for reportType: " + reportType);
+			nLogger.Info(string.Format("RequestReport start for reportType: {0}, startDate: {1}, endDate: {2}", reportType, startDate, endDate));
 
 			RequestReportRequest request = new RequestReportRequest();
 			request.ReportType = reportType;
