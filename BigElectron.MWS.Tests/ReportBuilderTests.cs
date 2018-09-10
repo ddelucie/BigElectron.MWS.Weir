@@ -67,7 +67,7 @@ namespace BigElectron.MWS.Common.Tests
 			Assert.IsTrue(0 < report.Count());
 			Assert.AreEqual(13, report.Count());
 			Assert.AreEqual(1, report.First().ReservedInventory);
-			Assert.AreEqual(100, report.First().TotalInventory);
+			Assert.AreEqual(99, report.First().TotalInventory);
 			Assert.AreEqual(20, report.First().UnfulfillableInventory);
 			//Assert.AreEqual(1, report.First().MonthlySales);
 			//Assert.AreEqual(3, report.ElementAt(1).MonthlySales);
